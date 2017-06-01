@@ -26,7 +26,36 @@
     </div>
 
   <script>
-    // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+    // first thing to do is get all the triggers. Things that will be hovered that need a bg behind it
+
+    const triggers = document.querySelectorAll('a');
+    const highlight = document.createElement('span');
+
+    highlight.classList.add('highlight');
+    document.body.append(highlight);
+
+    function highlightLink() {
+      // get bounding client rect - gives info on elem position, width and height
+      const linkCoords = this.getBoundingClientRect();
+      console.log(linkCoords);
+
+      const coords = {
+        width: linkCoords.width,
+        height: linkCoords.height,
+        top: linkCoords.top + window.scrollY,
+        left: linkCoords.left + window.scrollX
+      };
+
+      highlight.style.width = `${coords.width}px`;
+      highlight.style.height = `${coords.height}px`;
+      highlight.style.transform = `translate(${coords.left}px, ${coords.top}px)`;
+    }
+
+    triggers.forEach(trig => trig.addEventListener('mouseenter', highlightLink));
+
+
+
+
   </script>
 </body>
 </html>
